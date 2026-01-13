@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import AppNavigator from "./navigation/AppNavigator";
 import { AppProviders } from "./providers/AppProviders";
 
-// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {

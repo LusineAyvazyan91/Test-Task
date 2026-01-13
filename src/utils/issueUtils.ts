@@ -49,8 +49,22 @@ export const formatUpdatedDate = (dateString: string): string => {
 
 export const calculateIssueStats = (issues: Issue[]) => {
   const total = issues.length;
-  const closed = issues.filter((issue) => issue.status === "closed").length;
-  const opened = issues.filter((issue) => issue.status === "open").length;
+  const { open: opened, closed } = issues.reduce(
+    (acc, item) => {
+      switch (item.status) {
+        case "open":
+          acc.open = acc.open + 1;
+          break;
+        case "closed":
+          acc.closed = acc.closed + 1;
+          break;
+        default:
+          return acc;
+      }
+      return acc;
+    },
+    { open: 0, closed: 0 }
+  );
 
   return {
     total,
@@ -66,16 +80,11 @@ export const filterIssues = (
   filter: "all" | "open" | "closed",
   searchQuery: string
 ): Issue[] => {
-  let filtered = [...issues];
+  let filtered =
+    filter === "all"
+      ? [...issues]
+      : issues.filter((issue) => issue.status === filter);
 
-  // Apply status filter
-  if (filter === "open") {
-    filtered = filtered.filter((issue) => issue.status === "open");
-  } else if (filter === "closed") {
-    filtered = filtered.filter((issue) => issue.status === "closed");
-  }
-
-  // Apply search filter
   if (searchQuery.trim()) {
     const query = searchQuery.toLowerCase();
     filtered = filtered.filter((issue) =>

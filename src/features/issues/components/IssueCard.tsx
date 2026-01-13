@@ -82,7 +82,6 @@ export const IssueCard: React.FC<IssueCardProps> = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    // Custom comparison function for better performance
     return (
       prevProps.issue.id === nextProps.issue.id &&
       prevProps.issue.status === nextProps.issue.status &&

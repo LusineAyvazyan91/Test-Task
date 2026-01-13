@@ -24,9 +24,7 @@ export const loadIssues = async (): Promise<Issue[] | undefined> => {
     const timestamp = parseInt(rawTimestamp, 10);
     const now = Date.now();
 
-    // Check if cache is expired (older than 4 hours)
     if (now - timestamp > CACHE_TTL_MS) {
-      // Clear expired cache
       await Promise.all([
         AsyncStorage.removeItem(KEY),
         AsyncStorage.removeItem(TIMESTAMP_KEY),

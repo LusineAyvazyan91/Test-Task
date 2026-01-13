@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
   },
   segmentButtonActive: {
     backgroundColor: Colors.white,
-    // iOS shadow
     shadowColor: Colors.dark100,
     shadowOffset: {
       width: 2,
@@ -104,7 +103,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.04,
     shadowRadius: 4,
-    // Android shadow
     elevation: 2,
   },
 });

@@ -34,9 +34,9 @@ export default function IssuesListScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = () => {
     refetch();
-  }, [refetch]);
+  };
 
   const handleIssuePress = useCallback(
     (issueId: string) => {
@@ -45,13 +45,11 @@ export default function IssuesListScreen() {
     [navigation]
   );
 
-  // Memoize filtered issues to avoid unnecessary recalculations
   const filteredIssues = useMemo(
     () => filterIssues(issues, filter, searchQuery),
     [issues, filter, searchQuery]
   );
 
-  // Handle search with error state
   const handleSearchChange = useCallback((text: string) => {
     setSearchQuery(text);
   }, []);
@@ -70,7 +68,6 @@ export default function IssuesListScreen() {
     [searchQuery, filteredIssues.length, isLoading, issues.length]
   );
 
-  // Show search error when search query exists but returns no results
   const hasSearchError = useMemo(
     () =>
       searchQuery.trim().length > 0 &&
@@ -177,6 +174,7 @@ const styles = StyleSheet.create({
     gap: 12,
     backgroundColor: Colors.white,
     paddingHorizontal: 16,
+    paddingBottom: 100,
   },
   emptyListContent: {
     flexGrow: 1,
