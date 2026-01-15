@@ -22,6 +22,10 @@ type NavigationProp = NativeStackNavigationProp<
 
 type FilterType = "all" | "open" | "closed";
 
+const FLATLIST_INITIAL_RENDER = 10;
+const FLATLIST_MAX_BATCH = 10;
+const FLATLIST_WINDOW_SIZE = 10;
+
 export default function IssuesListScreen() {
   const navigation = useNavigation<NavigationProp>();
   const {
@@ -147,9 +151,9 @@ export default function IssuesListScreen() {
         }
         ListEmptyComponent={renderEmptyState}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={10}
-        windowSize={10}
-        initialNumToRender={10}
+        maxToRenderPerBatch={FLATLIST_MAX_BATCH}
+        windowSize={FLATLIST_WINDOW_SIZE}
+        initialNumToRender={FLATLIST_INITIAL_RENDER}
       />
     </SafeAreaView>
   );
