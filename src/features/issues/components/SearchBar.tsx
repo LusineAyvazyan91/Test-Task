@@ -61,9 +61,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           editable={!disabled}
-          returnKeyType="search"
-          enablesReturnKeyAutomatically
-          blurOnSubmit
         />
         <View style={styles.iconContainer}>
           <SearchIcon width={18} height={18} color={getIconColor()} />

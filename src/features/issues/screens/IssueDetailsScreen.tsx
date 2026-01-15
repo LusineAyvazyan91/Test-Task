@@ -62,7 +62,7 @@ export default function IssueDetailsScreen() {
       setPriority(issue.priority);
       setStatus(issue.status);
     }
-  }, [issue?.id, issue?.priority, issue?.status]);
+  }, [issue?.id]);
 
   useEffect(() => {
     if (issue?.id) {
@@ -98,9 +98,8 @@ export default function IssueDetailsScreen() {
       },
       {
         onSuccess: () => {
-          setTimeout(() => {
-            navigation.goBack();
-          }, 300);
+          // Navigate back immediately - optimistic update already visible in cache
+          navigation.goBack();
         },
         onError: () => {
           setPriority(originalPriority);

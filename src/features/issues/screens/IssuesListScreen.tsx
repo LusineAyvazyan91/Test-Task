@@ -33,13 +33,18 @@ export default function IssuesListScreen() {
     isLoading,
     error,
     refetch,
-    isRefetching,
   } = useIssues();
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const onRefresh = () => {
-    refetch();
+  const onRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleIssuePress = useCallback(
@@ -111,7 +116,8 @@ export default function IssuesListScreen() {
     []
   );
 
-  if (isLoading) {
+  // Only show skeleton on initial load (no cached data)
+  if (isLoading && !issues.length) {
     return <IssuesListSkeleton />;
   }
 
@@ -147,7 +153,7 @@ export default function IssuesListScreen() {
         }
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={isRefetching} onRefresh={onRefresh} />
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
         }
         ListEmptyComponent={renderEmptyState}
         removeClippedSubviews={true}
